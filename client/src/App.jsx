@@ -1,9 +1,7 @@
+import Products from "./pages/Products";
+
 function App() {
-  return (
-    <div>
-      <h1>Product Dashboard</h1>
-    </div>
-  );
+  return <Products />;
 }
 
 export default App; 
