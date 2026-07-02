@@ -2,30 +2,53 @@ const mongoose = require("mongoose");
 
 const productSchema = new mongoose.Schema(
   {
-    name: {
+    productName: {
       type: String,
       required: true,
       trim: true,
     },
-    price: {
-      type: Number,
+
+    productCode: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+    },
+
+    category: {
+      type: String,
       required: true,
     },
+
     description: {
       type: String,
       required: true,
     },
-    category: {
+
+    version: {
       type: String,
       required: true,
-    }, 
-    quantity: {
-  type: Number,
-  required: true, // Every product should have a stock quantity 
-}, 
-    image: {
+    },
+
+    status: {
       type: String,
-      default: "",
+      enum: [
+        "Active",
+        "Inactive",
+        "Under Development",
+        "Discontinued",
+      ],
+      default: "Active",
+    },
+
+    ownerTeam: {
+      type: String,
+      required: true,
+    },
+
+    launchDate: {
+      type: Date,
+      required: true,
     },
   },
   {
