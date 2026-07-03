@@ -1,4 +1,4 @@
-function ProductTable({ products, onEdit }) { 
+function ProductTable({ products, onEdit, onDelete }) { 
   return (
     <table border="1" cellPadding="10" style={{ borderCollapse: "collapse", width: "100%" }}>
       <thead>
@@ -24,7 +24,16 @@ function ProductTable({ products, onEdit }) {
             <td>{product.version}</td>
             <td>{product.status}</td>
             <td>{product.ownerTeam}</td> 
-            <td><button onClick={() => onEdit(product)}> Edit </button></td> 
+            {/* Product actions */} 
+            <td>
+    <button onClick={() => onEdit(product)}>
+        Edit
+    </button>
+
+    <button onClick={() => onDelete(product._id)}>
+    Delete
+    </button> 
+</td> 
           </tr>
         ))}
       </tbody>

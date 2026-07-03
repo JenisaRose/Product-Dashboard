@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getProducts } from "../api/productApi"; 
+import { getProducts, deleteProduct} from "../api/productApi"; 
 import ProductForm from "../components/ProductForm";  
 import ProductTable from "../components/ProductTable"; 
 
@@ -13,8 +13,26 @@ console.log(selectedProduct);
 
   // Fetch products automatically when the page loads
   useEffect(() => {
+    fetchProducts(); 
+  }, []); 
+
+  // Deletes a product after user confirmation
+async function handleDelete(productId) {
+  const confirmDelete = window.confirm(
+    "Are you sure you want to delete this product?"
+  );
+
+  if (!confirmDelete) return;
+
+  try {
+    await deleteProduct(productId);
+
+    // Refresh the product list
     fetchProducts();
-  }, []);
+  } catch (error) {
+    console.error("Error deleting product:", error);
+  }
+} 
 
   async function fetchProducts() {
     try {
@@ -40,7 +58,8 @@ console.log(selectedProduct);
     {/* Display all products */}
     <ProductTable
     products={products}
-    onEdit={setSelectedProduct}
+    onEdit={setSelectedProduct} 
+    onDelete={handleDelete} 
 /> 
   </div>
 ); 
