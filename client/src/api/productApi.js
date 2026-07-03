@@ -6,10 +6,11 @@ const API = axios.create({
 });
 
 // Fetch all products
-export const getProducts = () => API.get("/");
+export const getProducts = () => API.get("/"); 
 
-// Create a new product
-export const createProduct = (productData) => API.post("/", productData);
+// Sends a new product to the backend
+export const createProduct = (productData) =>
+  API.post("/", productData); 
 
 // Update an existing product
 export const updateProduct = (id, productData) =>

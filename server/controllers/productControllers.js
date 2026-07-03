@@ -15,9 +15,18 @@ const createProduct = async (req, res) => {
   try {
     const product = await Product.create(req.body);
     res.status(201).json(product);
-  } catch (error) {
-    res.status(400).json({ message: error.message });
   } 
+  catch (error) {
+    if (error.code === 11000) {
+        return res.status(400).json({
+            message: "Product Code already exists."
+        });
+    }
+
+    res.status(400).json({
+        message: error.message
+    });
+} 
 }; 
 
 // Update an existing product

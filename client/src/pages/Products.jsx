@@ -1,9 +1,17 @@
 import { useEffect, useState } from "react";
-import { getProducts } from "../api/productApi";
+import { getProducts } from "../api/productApi"; 
+import ProductForm from "../components/ProductForm";  
+import ProductTable from "../components/ProductTable"; 
 
 function Products() {
-  const [products, setProducts] = useState([]);
 
+  // Stores all products received from the backend
+  const [products, setProducts] = useState([]); 
+  // Stores the product currently being edited
+const [selectedProduct, setSelectedProduct] = useState(null); 
+console.log(selectedProduct); 
+
+  // Fetch products automatically when the page loads
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -18,34 +26,24 @@ function Products() {
   }
 
   return (
-    <div>
-      <h1>Product Dashboard</h1>
+  <div>
+    <h1>Product Dashboard</h1>
 
-      {products.map((product) => (
-  <div
-    key={product._id}
-    style={{
-      border: "1px solid #ccc",
-      padding: "15px",
-      marginBottom: "10px",
-      borderRadius: "8px",
-    }}
-  >
-    <h3>{product.productName}</h3>
+    {/* Form for adding a new product */}
+    <ProductForm
+    onProductAdded={fetchProducts}
+    selectedProduct={selectedProduct} 
+    clearSelectedProduct={() => setSelectedProduct(null)} 
+    /> 
+    <hr />
 
-    <p><strong>Code:</strong> {product.productCode}</p>
-
-    <p><strong>Category:</strong> {product.category}</p>
-
-    <p><strong>Version:</strong> {product.version}</p>
-
-    <p><strong>Status:</strong> {product.status}</p>
-
-    <p><strong>Owner Team:</strong> {product.ownerTeam}</p>
+    {/* Display all products */}
+    <ProductTable
+    products={products}
+    onEdit={setSelectedProduct}
+/> 
   </div>
-))} 
-    </div>
-  );
+); 
 }
 
 export default Products; 
