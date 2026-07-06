@@ -18,6 +18,7 @@ import {
   FileBarChart,
 } from "lucide-react"; 
 import { NavLink, useLocation } from "react-router-dom"; // React Router 
+import logo from "../assets/ARODEK LOGO.png"; 
 
 export const drawerWidth = 260; 
 
@@ -49,9 +50,39 @@ function Sidebar() {
       }}
     >
       <Box sx={{ p: 3 }}>
-  <Typography variant="h5" fontWeight="bold" mb={4}>
-    Product Dashboard
-  </Typography>
+  <Box
+  sx={{
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    mb: 3,
+  }}
+>
+  <Box
+    component="img"
+    src={logo}
+    alt="ARODEK"
+    sx={{
+      width: 150,
+      height: "auto",
+      objectFit: "contain",
+      mb: 2,
+    }}
+  />
+
+  <Typography
+  variant="h6"
+  fontWeight="bold"
+  color="white"
+  sx={{
+    fontSize: "2rem",   // Increase this value
+    lineHeight: 1.2,
+    mt: 1,              // Space between logo and text
+  }}
+>
+  Product Dashboard
+</Typography> 
+</Box> 
 
   <List>
     {menuItems.map((item) => (
