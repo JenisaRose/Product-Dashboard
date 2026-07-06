@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/clients";
+const API_URL = "https://product-dashboard-api-nqfn.onrender.com/api/clients"; 
 
 // Get Clients
 export const getClients = (params) =>
