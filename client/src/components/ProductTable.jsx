@@ -1,43 +1,114 @@
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow, 
+  Chip, 
+  IconButton,         // MUI IconButton 
+  Tooltip,           // MUI Tooltip 
+} from "@mui/material"; // MUI Table 
+import { Pencil, Trash2 } from "lucide-react"; // Lucide React Icons 
+
 function ProductTable({ products, onEdit, onDelete }) { 
   return (
-    <table border="1" cellPadding="10" style={{ borderCollapse: "collapse", width: "100%" }}>
-      <thead>
-        {/* Table headings */}
-        <tr>
-          <th>Name</th>
-          <th>Code</th>
-          <th>Category</th>
-          <th>Version</th>
-          <th>Status</th>
-          <th>Owner Team</th> 
-          <th>Actions</th> 
-        </tr>
-      </thead>
+    <Paper elevation={3} sx={{ borderRadius: 3 }}> {/* MUI Paper */}
+  <TableContainer>
+    <Table> 
+      <TableHead>
+  <TableRow>
+    <TableCell sx={{ fontWeight: 700 }}>Name</TableCell>
+    <TableCell sx={{ fontWeight: 700 }}>Code</TableCell>
+    <TableCell sx={{ fontWeight: 700 }}>Category</TableCell>
+    <TableCell sx={{ fontWeight: 700 }}>Description</TableCell>
+    <TableCell sx={{ fontWeight: 700 }}>Version</TableCell>
+    <TableCell sx={{ fontWeight: 700 }}>Status</TableCell>
+    <TableCell sx={{ fontWeight: 700 }}>Owner Team</TableCell>
+    <TableCell sx={{ fontWeight: 700 }}>Launch Date</TableCell>
+    <TableCell sx={{ fontWeight: 700 }}>Created Date</TableCell>
+    <TableCell sx={{ fontWeight: 700 }}>Actions</TableCell>
+  </TableRow>
+</TableHead> {/* MUI TableHead */} 
 
-      <tbody>
-        {/* Render one row for every product */}
-        {products.map((product) => (
-          <tr key={product._id}>
-            <td>{product.productName}</td>
-            <td>{product.productCode}</td>
-            <td>{product.category}</td>
-            <td>{product.version}</td>
-            <td>{product.status}</td>
-            <td>{product.ownerTeam}</td> 
+      <TableBody>           {/* MUI TableBody */} 
+  {products.length > 0 ? (
+    products.map((product) => ( 
+         <TableRow key={product._id}>          {/* MUI TableRow */} 
+            <TableCell>{product.productName}</TableCell>
+            <TableCell>{product.productCode}</TableCell>
+            <TableCell>{product.category}</TableCell> 
+            <TableCell>{product.description}</TableCell> 
+            <TableCell>{product.version}</TableCell>
+            <TableCell>
+  <Chip
+    label={product.status}
+    color={
+      product.status === "Active"
+        ? "success"
+        : product.status === "Inactive"
+        ? "default"
+        : product.status === "Under Development"
+        ? "warning"
+        : "error"
+    }
+    size="small"
+  /> {/* MUI Chip */}
+</TableCell> 
+            <TableCell>{product.ownerTeam}</TableCell> 
+            <TableCell> 
+  {new Date(product.launchDate).toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  })}
+</TableCell> 
+
+<TableCell>
+  {new Date(product.createdAt).toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  })}
+</TableCell> 
             {/* Product actions */} 
-            <td>
-    <button onClick={() => onEdit(product)}>
-        Edit
-    </button>
+            <TableCell>
+  <Tooltip title="Edit">
+    <IconButton
+      color="primary"
+      onClick={() => onEdit(product)} 
+    >
+      <Pencil size={18} />
+    </IconButton>
+  </Tooltip>
 
-    <button onClick={() => onDelete(product._id)}>
-    Delete
-    </button> 
-</td> 
-          </tr>
-        ))}
-      </tbody>
-    </table>
+  <Tooltip title="Delete">
+    <IconButton
+      color="error"
+      onClick={() => onDelete(product._id)} 
+    >
+      <Trash2 size={18} />
+    </IconButton>
+  </Tooltip>
+</TableCell> 
+          </TableRow>
+        )) 
+  ) : (
+    <TableRow>
+      <TableCell
+  colSpan={10}
+  align="center"
+  sx={{ py: 2.5 }}
+> 
+        No such product found.
+      </TableCell>
+    </TableRow> 
+  )}
+      </TableBody>  
+        </Table>
+  </TableContainer>
+</Paper> 
   );
 } 
 

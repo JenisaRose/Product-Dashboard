@@ -1,5 +1,17 @@
 import { useState, useEffect } from "react"; 
 import { createProduct, updateProduct } from "../api/productApi"; 
+import {
+  Paper,
+  Typography,
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Button, 
+  Grid, 
+} from "@mui/material"; // MUI Form Components 
+import toast from "react-hot-toast"; // React Hot Toast 
 
 function ProductForm({ onProductAdded, selectedProduct, clearSelectedProduct,}) { 
       // Stores all values entered in the product form
@@ -51,12 +63,14 @@ async function handleSubmit(event) {
     // Update the selected product
     await updateProduct(selectedProduct._id, formData);
 
-    setMessage("✅ Product updated successfully!");
+    setMessage("✅ Product updated successfully!"); 
+    toast.success("Product updated successfully"); 
 } else {
     // Create a new product
     await createProduct(formData);
 
-    setMessage("✅ Product added successfully!");
+    setMessage("✅ Product added successfully!"); 
+    toast.success("Product added successfully"); 
 } 
 
 // Refresh the product list in the parent component
@@ -86,16 +100,27 @@ catch (error) {
 
     setMessage(
         error.response?.data?.message || "Something went wrong."
-    );
+    ); 
+    toast.error(error.response?.data?.message || "Something went wrong"); 
 
     setTimeout(() => {
         setMessage("");
     }, 3000);
 } 
 } 
-  return (
+  return ( 
+     <Paper
+    elevation={3} // MUI Paper
+    sx={{
+      p: 3,
+      borderRadius: 3,
+      mb: 4,
+    }}
+  > 
     <div>
-      <h2>Add Product</h2> 
+     <Typography variant="h5" fontWeight={600} mb={3}>
+  Add Product
+ </Typography>                  {/*MUI Typography  */} 
       {message && (
     <p
         style={{
@@ -110,94 +135,124 @@ catch (error) {
 )} 
 
       <form onSubmit={handleSubmit}> 
-        <div>
-          <label>Product Name</label>
-          <input 
-          type="text"
-        name="productName"
-     value={formData.productName}
+        <Grid container spacing={2}>       {/* MUI Grid */} 
+            <Grid size={{ xs: 12, md: 6 }}></Grid> 
+        <TextField
+  label="Product Name"
+  name="productName"
+  value={formData.productName}
+  onChange={handleChange}
+  fullWidth
+  margin="normal"
+ />                                 {/* MUI TextField  */} 
+
+<Grid size={{ xs: 12, md: 6 }}>
+       <TextField
+  label="Product Code"
+  name="productCode"
+  value={formData.productCode}
+  onChange={handleChange}
+  fullWidth
+  margin="normal"
+ />                                      {/*MUI TextField */} 
+ </Grid> 
+
+<Grid size={{ xs: 12, md: 6 }}>
+        <TextField
+  label="Category"
+  name="category"
+  value={formData.category}
+  onChange={handleChange}
+  fullWidth
+  margin="normal"
+ />                            {/*MUI TextField */} 
+ </Grid>
+
+<Grid size={{ xs: 12 }}>       {/* Description TextField */} 
+       <TextField
+  label="Description"
+  name="description"
+  value={formData.description}
+  onChange={handleChange}
+  fullWidth
+  multiline
+  rows={4}
+  margin="normal"
+ />                            {/*MUI TextField */} 
+ </Grid> 
+
+ <Grid size={{ xs: 12, md: 6 }}>
+        <TextField
+  label="Version"
+  name="version"
+  value={formData.version}
+  onChange={handleChange}
+  fullWidth
+  margin="normal"
+ />                   {/*MUI TextField */} 
+ </Grid> 
+
+<Grid size={{ xs: 12, md: 6 }}>
+        <FormControl fullWidth margin="normal">
+  <InputLabel>Status</InputLabel>
+
+  <Select
+    name="status"
+    value={formData.status}
+    label="Status"
     onChange={handleChange}
-           /> 
-        </div>
+  >
+    <MenuItem value="Active">Active</MenuItem>
+    <MenuItem value="Inactive">Inactive</MenuItem>
+    <MenuItem value="Under Development">Under Development</MenuItem>
+    <MenuItem value="Discontinued">Discontinued</MenuItem>
+  </Select>
+ </FormControl>               {/*MUI Select */} 
+ </Grid> 
 
-        <div>
-          <label>Product Code</label>
-          <input 
-          type="text"
-        name="productCode"
-     value={formData.productCode}
-    onChange={handleChange}
-           /> 
-        </div>
+        <Grid size={{ xs: 12, md: 6 }}>
+        <TextField
+  label="Owner Team"
+  name="ownerTeam"
+  value={formData.ownerTeam}
+  onChange={handleChange}
+  fullWidth
+  margin="normal"
+/>                            {/*MUI TextField */} 
+</Grid>  
 
-        <div>
-          <label>Category</label>
-          <input 
-          type="text"
-        name="category"
-     value={formData.category}
-    onChange={handleChange}
-           /> 
-        </div>
+<Grid size={{ xs: 12, md: 6 }}>
+        <TextField
+  label="Launch Date"
+  type="date"
+  name="launchDate"
+  value={formData.launchDate}
+  onChange={handleChange}
+  fullWidth
+  margin="normal"
+  slotProps={{
+  inputLabel: {
+    shrink: true,
+  },
+}} 
+/>                            {/*MUI TextField */} 
+</Grid> 
 
-        <div>
-          <label>Description</label>
-          <textarea 
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-          />
-        </div>
+<Grid size={{ xs: 12 }}> 
+        <Button
+  type="submit"
+  variant="contained"
+  size="large"
+  sx={{ mt: 2 }}
+>
+  {selectedProduct ? "Update Product" : "Add Product"}
+</Button>               {/*MUI Button */} 
+</Grid> 
 
-        <div>
-          <label>Version</label>
-          <input 
-            type="text"
-            name="version"
-            value={formData.version}
-            onChange={handleChange}
-          /> 
-        </div>
-
-        <div>
-          <label>Status</label>
-          <select
-            name="status"
-            value={formData.status}
-            onChange={handleChange}
-          >
-            <option>Active</option>
-            <option>Inactive</option>
-            <option>Under Development</option>
-            <option>Discontinued</option>
-          </select>
-        </div>
-
-        <div>
-          <label>Owner Team</label>
-          <input 
-            type="text"
-            name="ownerTeam"
-            value={formData.ownerTeam}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div>
-          <label>Launch Date</label>
-          <input 
-            type="date"
-            name="launchDate"
-            value={formData.launchDate}
-            onChange={handleChange}
-          /> 
-        </div>
-
-        <button type="submit">
-        {selectedProduct ? "Update Product" : "Add Product"}
-        </button> 
-      </form>
-    </div>
+      </Grid> 
+      </form> 
+    </div> 
+    </Paper> 
   ); 
 }
 

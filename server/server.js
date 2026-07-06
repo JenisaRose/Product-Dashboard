@@ -8,7 +8,7 @@ const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/db"); 
 const productRoutes = require("./routes/productRoutes"); // Import all product routes 
-
+const clientRoutes = require("./routes/clientRoutes"); 
 const app = express();
 
 // Connect to MongoDB
@@ -21,6 +21,7 @@ app.use(express.json());
 // Product API routes
 // Any request starting with /api/products will go to productRoutes.js
 app.use("/api/products", productRoutes); 
+app.use("/api/clients", clientRoutes); 
 
 // Test Route
 app.get("/", (req, res) => {
