@@ -13,7 +13,8 @@ import {
   Select,
   MenuItem,
   Stack,
-} from "@mui/material"; // MUI Form Components
+} from "@mui/material"; // MUI Form Components 
+import { Box } from "@mui/material"; 
 
 function Products() {
   // Stores all products received from the backend
@@ -82,17 +83,17 @@ async function fetchProducts() {
 
   return (
     <DashboardLayout>
-      <div>
-        <h1>Product Dashboard</h1>
+  <Box sx={{ p: 3 }}>
+    <h1>Product Dashboard</h1>
 
-        {/* Product Form */}
-        <ProductForm
-          onProductAdded={fetchProducts}
-          selectedProduct={selectedProduct}
-          clearSelectedProduct={() => setSelectedProduct(null)}
-        />
+    <ProductForm
+      onProductAdded={fetchProducts}
+      selectedProduct={selectedProduct}
+      clearSelectedProduct={() => setSelectedProduct(null)}
+    />
 
-        <hr />
+    <hr />
+
 
         {/* MUI Stack */}
         <Stack
@@ -159,7 +160,7 @@ async function fetchProducts() {
           onEdit={setSelectedProduct}
           onDelete={handleDelete}
         />
-      </div>
+      </Box> 
     </DashboardLayout>
   );
 } 

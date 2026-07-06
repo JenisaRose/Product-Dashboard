@@ -118,7 +118,7 @@ catch (error) {
     }}
   > 
     <div>
-     <Typography variant="h5" fontWeight={600} mb={3}>
+     <Typography variant="h5" mb={3}> 
   Add Product
  </Typography>                  {/*MUI Typography  */} 
       {message && (
@@ -135,16 +135,17 @@ catch (error) {
 )} 
 
       <form onSubmit={handleSubmit}> 
-        <Grid container spacing={2}>       {/* MUI Grid */} 
-            <Grid size={{ xs: 12, md: 6 }}></Grid> 
-        <TextField
-  label="Product Name"
-  name="productName"
-  value={formData.productName}
-  onChange={handleChange}
-  fullWidth
-  margin="normal"
- />                                 {/* MUI TextField  */} 
+       <Grid container spacing={2}>
+
+  <Grid size={{ xs: 12 }}>
+    <TextField
+      label="Product Name"
+      name="productName"
+      value={formData.productName}
+      onChange={handleChange}
+      fullWidth
+    />
+  </Grid>                           {/* MUI TextField  */} 
 
 <Grid size={{ xs: 12, md: 6 }}>
        <TextField
@@ -152,8 +153,7 @@ catch (error) {
   name="productCode"
   value={formData.productCode}
   onChange={handleChange}
-  fullWidth
-  margin="normal"
+  fullWidth 
  />                                      {/*MUI TextField */} 
  </Grid> 
 
@@ -163,8 +163,7 @@ catch (error) {
   name="category"
   value={formData.category}
   onChange={handleChange}
-  fullWidth
-  margin="normal"
+  fullWidth 
  />                            {/*MUI TextField */} 
  </Grid>
 
@@ -176,8 +175,7 @@ catch (error) {
   onChange={handleChange}
   fullWidth
   multiline
-  rows={4}
-  margin="normal"
+  rows={4} 
  />                            {/*MUI TextField */} 
  </Grid> 
 
@@ -187,13 +185,12 @@ catch (error) {
   name="version"
   value={formData.version}
   onChange={handleChange}
-  fullWidth
-  margin="normal"
+  fullWidth 
  />                   {/*MUI TextField */} 
  </Grid> 
 
 <Grid size={{ xs: 12, md: 6 }}>
-        <FormControl fullWidth margin="normal">
+        <FormControl fullWidth> 
   <InputLabel>Status</InputLabel>
 
   <Select
@@ -216,8 +213,7 @@ catch (error) {
   name="ownerTeam"
   value={formData.ownerTeam}
   onChange={handleChange}
-  fullWidth
-  margin="normal"
+  fullWidth 
 />                            {/*MUI TextField */} 
 </Grid>  
 
@@ -228,8 +224,7 @@ catch (error) {
   name="launchDate"
   value={formData.launchDate}
   onChange={handleChange}
-  fullWidth
-  margin="normal"
+  fullWidth 
   slotProps={{
   inputLabel: {
     shrink: true,

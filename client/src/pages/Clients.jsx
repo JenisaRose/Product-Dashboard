@@ -56,9 +56,8 @@ async function fetchClients() {
   return (
     <DashboardLayout>
       <Box sx={{ p: 3 }}> 
-        <Typography variant="h4" fontWeight={700} sx={{ mb: 3 }}>
-  Client Management
-</Typography>
+        <h1>Client Dashboard</h1> 
+
 
 <ClientForm
   onClientAdded={fetchClients}
