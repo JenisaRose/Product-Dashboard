@@ -4,6 +4,7 @@ import Dashboard from "./pages/Dashboard";
 import Products from "./pages/Products"; 
 import { Toaster } from "react-hot-toast"; // React Hot Toast 
 import Clients from "./pages/Clients"; 
+import ClientProducts from "./pages/ClientProducts"; 
 
 function App() {
   return ( 
@@ -18,6 +19,8 @@ function App() {
       <Route path="/products" element={<Products />} /> 
       
       <Route path="/clients" element={<Clients />} /> 
+
+      <Route path="/assignments" element={<ClientProducts />} /> 
  
     </Routes> 
     </> 

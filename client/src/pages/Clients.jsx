@@ -1,5 +1,9 @@
 import DashboardLayout from "../layouts/DashboardLayout"; // Custom Layout
-import { Typography, Box } from "@mui/material"; // MUI Components 
+import {
+  Box,
+  TextField,
+  Stack,
+} from "@mui/material"; 
 import ClientForm from "../components/ClientForm"; // Client Form 
 import { useEffect, useState } from "react"; 
 import { getClients, deleteClient } from "../api/clientApi"; // Client API 
@@ -9,6 +13,8 @@ import toast from "react-hot-toast";
 function Clients() { 
     // Stores all clients
 const [clients, setClients] = useState([]); 
+// Stores the search text
+const [searchTerm, setSearchTerm] = useState(""); 
 // Stores the client currently being edited
 const [selectedClient, setSelectedClient] = useState(null); 
 async function fetchClients() {
@@ -53,6 +59,20 @@ async function fetchClients() {
     console.error("Error fetching clients:", error);
   }
 } 
+
+// Filter clients based on company name, contact person,
+// email or phone
+const filteredClients = clients.filter((client) => {
+  const search = searchTerm.toLowerCase();
+
+  return (
+    client.companyName.toLowerCase().includes(search) ||
+    client.contactPerson.toLowerCase().includes(search) ||
+    client.email.toLowerCase().includes(search) ||
+    client.phone.toLowerCase().includes(search)
+  );
+}); 
+
   return (
     <DashboardLayout>
       <Box sx={{ p: 3 }}> 
@@ -63,9 +83,28 @@ async function fetchClients() {
   onClientAdded={fetchClients}
   selectedClient={selectedClient}
   clearSelectedClient={() => setSelectedClient(null)}
-/> 
+/>
+
+<hr />
+
+<Stack
+  direction={{ xs: "column", md: "row" }}
+  spacing={2}
+  sx={{
+    mt: 0,
+    mb: 3,
+  }}
+> 
+  <TextField
+    label="Search Clients"
+    value={searchTerm}
+    onChange={(event) => setSearchTerm(event.target.value)}
+    fullWidth
+  />
+</Stack> 
+
 <ClientTable
-  clients={clients}
+  clients={filteredClients} 
   onEdit={setSelectedClient}
   onDelete={handleDelete}
 /> 

@@ -91,7 +91,14 @@ useEffect(() => {
   }
 
   return (
-    <Paper elevation={3} sx={{ p: 3, borderRadius: 3 }}>
+    <Paper
+    elevation={3} // MUI Paper
+    sx={{
+      p: 3,
+      borderRadius: 3,
+      mb: 4,
+    }}
+  >  
       <Typography variant="h5" mb={3}>
         Add Client
       </Typography>
