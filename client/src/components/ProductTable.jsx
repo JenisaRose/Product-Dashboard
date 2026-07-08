@@ -11,6 +11,7 @@ import {
   Tooltip,           // MUI Tooltip 
 } from "@mui/material"; // MUI Table 
 import { Pencil, Trash2 } from "lucide-react"; // Lucide React Icons 
+import { formatDate } from "../utils/formatDate"; 
 
 function ProductTable({ products, onEdit, onDelete }) { 
   return (
@@ -58,19 +59,11 @@ function ProductTable({ products, onEdit, onDelete }) {
 </TableCell> 
             <TableCell>{product.ownerTeam}</TableCell> 
             <TableCell> 
-  {new Date(product.launchDate).toLocaleDateString("en-GB", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  })}
+          {formatDate(product.launchDate)} 
 </TableCell> 
 
 <TableCell>
-  {new Date(product.createdAt).toLocaleDateString("en-GB", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  })}
+          {formatDate(product.createdAt)} 
 </TableCell> 
             {/* Product actions */} 
             <TableCell>

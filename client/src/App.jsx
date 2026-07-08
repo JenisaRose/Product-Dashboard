@@ -5,6 +5,7 @@ import Products from "./pages/Products";
 import { Toaster } from "react-hot-toast"; // React Hot Toast 
 import Clients from "./pages/Clients"; 
 import ClientProducts from "./pages/ClientProducts"; 
+import PaymentTracking from "./pages/PaymentTracking";
 
 function App() {
   return ( 
@@ -22,6 +23,7 @@ function App() {
 
       <Route path="/assignments" element={<ClientProducts />} /> 
  
+      <Route path="/payments" element={<PaymentTracking />} />  
     </Routes> 
     </> 
     
