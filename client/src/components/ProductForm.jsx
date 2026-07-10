@@ -12,6 +12,10 @@ import {
   Grid, 
 } from "@mui/material"; // MUI Form Components 
 import toast from "react-hot-toast"; // React Hot Toast 
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"; 
+import dayjs from "dayjs"; 
 
 function ProductForm({ onProductAdded, selectedProduct, clearSelectedProduct,}) { 
       // Stores all values entered in the product form
@@ -217,21 +221,31 @@ catch (error) {
 />                            {/*MUI TextField */} 
 </Grid>  
 
-<Grid size={{ xs: 12, md: 6 }}>
-        <TextField
-  label="Launch Date"
-  type="date"
-  name="launchDate"
-  value={formData.launchDate}
-  onChange={handleChange}
-  fullWidth 
-  slotProps={{
-  inputLabel: {
-    shrink: true,
-  },
-}} 
-/>                            {/*MUI TextField */} 
-</Grid> 
+            <Grid size={{ xs: 12, md: 6 }}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label="Launch Date"
+                  value={
+                    formData.launchDate
+                      ? dayjs(formData.launchDate)
+                      : null
+                  }
+                  onChange={(newValue) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      launchDate: newValue
+                        ? newValue.format("YYYY-MM-DD")
+                        : "",
+                    }))
+                  }
+                  slotProps={{
+                    textField: {
+                      fullWidth: true,
+                    },
+                  }}
+                />
+              </LocalizationProvider>
+            </Grid> 
 
 <Grid size={{ xs: 12 }}> 
         <Button

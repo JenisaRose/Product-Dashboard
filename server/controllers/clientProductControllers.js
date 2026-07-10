@@ -1,73 +1,10 @@
 // Import the ClientProduct model
-const ClientProduct = require("../models/ClientProduct");
-
-// Calculates subscription status from the renewal date
-// Calculates subscription status based on renewal date and billing cycle
-function calculateCurrentStatus(renewalDate, billingCycle) {
-    const today = new Date();
-
-    // Compare only dates (ignore time)
-    today.setHours(0, 0, 0, 0);
-
-    const expiry = new Date(renewalDate);
-    expiry.setHours(0, 0, 0, 0);
-
-    const differenceInDays =
-        (expiry - today) / (1000 * 60 * 60 * 24);
-
-    // Subscription already expired
-    if (differenceInDays < 0) {
-        return "Expired";
-    }
-
-    // Default warning period
-    let warningDays = 30;
-
-    switch (billingCycle) {
-        case "Monthly":
-            warningDays = 7;
-            break;
-
-        case "Quarterly":
-            warningDays = 15;
-            break;
-
-        case "Half Yearly":
-            warningDays = 20;
-            break;
-
-        case "Yearly":
-            warningDays = 30;
-            break;
-
-        default:
-            warningDays = 30;
-    }
-
-    if (differenceInDays <= warningDays) {
-        return "Expiring Soon";
-    }
-
-    return "Active";
-} 
-
-// Calculate payment status automatically
-function calculatePaymentStatus(amount, paidAmount) {
-    const pendingAmount = amount - paidAmount;
-
-    // Nothing has been paid
-    if (pendingAmount === amount) {
-        return "Pending";
-    }
-
-    // Fully paid
-    if (pendingAmount === 0) {
-        return "Paid";
-    }
-
-    // Partially paid
-    return "Partial";
-} 
+const ClientProduct = require("../models/ClientProduct"); 
+// Import shared status calculation utilities
+const {
+    calculateCurrentStatus,
+    calculatePaymentStatus,
+} = require("../utils/statusUtils"); 
 
 /*
 =========================================

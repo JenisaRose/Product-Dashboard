@@ -21,6 +21,10 @@ import {
   Button,
   Grid,
 } from "@mui/material"; 
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs from "dayjs"; 
 
 function ClientProductForm({
   onAssignmentAdded,
@@ -265,7 +269,8 @@ return (
         {/* Plan Name */}
         <Grid size={{ xs: 12 }}>
           <TextField
-            fullWidth
+            fullWidth 
+            required 
             label="Plan / License Name"
             name="planName"
             value={formData.planName}
@@ -287,9 +292,7 @@ return (
             >
               <MenuItem value="Monthly">Monthly</MenuItem>
               <MenuItem value="Quarterly">Quarterly</MenuItem>
-              <MenuItem value="Half Yearly">
-                Half Yearly
-              </MenuItem>
+              <MenuItem value="Half Yearly">Half Yearly</MenuItem> 
               <MenuItem value="Yearly">Yearly</MenuItem>
             </Select>
           </FormControl>
@@ -332,39 +335,58 @@ return (
 
         {/* Start Date */}
         <Grid size={{ xs: 12, md: 6 }}>
-          <TextField 
-            required 
-            fullWidth
-            type="date"
-            label="Start Date"
-            name="startDate"
-            value={formData.startDate}
-            onChange={handleChange}
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              label="Start Date"
+              value={
+                formData.startDate
+                  ? dayjs(formData.startDate)
+                  : null
+              }
+              onChange={(newValue) => {
+                const start = newValue
+                  ? newValue.format("YYYY-MM-DD")
+                  : "";
+
+                setFormData((prev) => ({
+                  ...prev,
+                  startDate: start,
+                  renewalDate: calculateRenewalDate(
+                    start,
+                    prev.billingCycle
+                  ),
+                }));
+              }}
+              slotProps={{
+                textField: {
+                  fullWidth: true,
+                },
+              }}
+            />
+          </LocalizationProvider>
+        </Grid> 
+
+        {/* Renewal Date */} 
+        <Grid size={{ xs: 12, md: 6 }}>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DatePicker
+            label="Renewal Date"
+            value={
+              formData.renewalDate
+                ? dayjs(formData.renewalDate)
+                : null
+            }
+            disabled
             slotProps={{
-              inputLabel: {
-                shrink: true,
+              textField: {
+                fullWidth: true,
+                helperText:
+                  "Automatically calculated from the Start Date and Billing Cycle",
               },
             }}
           />
-        </Grid>
-
-        {/* Renewal Date */}
-        <Grid size={{ xs: 12, md: 6 }}>
-          <TextField
-            fullWidth
-            type="date"
-            label="Renewal Date"
-            name="renewalDate"
-            value={formData.renewalDate}
-            disabled 
-             helperText="Automatically calculated from the Start Date and Billing Cycle" 
-            slotProps={{
-              inputLabel: {
-                shrink: true,
-               },
-              }}
-          /> 
-        </Grid>
+        </LocalizationProvider> 
+        </Grid> 
 
         {/* Payment Status */}
         <Grid size={{ xs: 12, md: 6 }}>

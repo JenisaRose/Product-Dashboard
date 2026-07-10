@@ -4,7 +4,11 @@ import {
     MenuItem,
 } from "@mui/material";
 
-import formatCurrency from "../utils/formatCurrency";
+import formatCurrency from "../utils/formatCurrency"; 
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"; 
+import dayjs from "dayjs"; 
 
 function PaymentForm({
     formData,
@@ -79,19 +83,35 @@ function PaymentForm({
 
             {/* Last Payment Date */}
             <Grid size={{ xs: 12, md: 6 }}>
-                <TextField
-                    fullWidth
-                    type="date"
-                    label="Last Payment Date"
-                    name="lastPaymentDate"
-                    value={formData.lastPaymentDate || ""}
-                    onChange={handleChange}
-                    slotProps={{
-                        inputLabel: {
-                            shrink: true,
-                        },
-                    }}
-                />
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DatePicker
+                        label="Last Payment Date" 
+                        value={
+                            formData.startDate
+                                ? dayjs(formData.startDate)
+                                : null
+                        }
+                        onChange={(newValue) => {
+                            const start = newValue
+                                ? newValue.format("YYYY-MM-DD")
+                                : "";
+
+                            setFormData((prev) => ({
+                                ...prev,
+                                startDate: start,
+                                renewalDate: calculateRenewalDate(
+                                    start,
+                                    prev.billingCycle
+                                ),
+                            }));
+                        }}
+                        slotProps={{
+                            textField: {
+                                fullWidth: true,
+                            },
+                        }}
+                    />
+                </LocalizationProvider>
             </Grid> 
 
             <Grid size={{ xs: 12, md: 6 }}>

@@ -10,6 +10,7 @@ const connectDB = require("./config/db");
 const productRoutes = require("./routes/productRoutes"); // Import all product routes 
 const clientRoutes = require("./routes/clientRoutes"); 
 const clientProductRoutes = require("./routes/clientProductRoutes"); 
+const renewalRoutes = require("./routes/renewalRoutes"); 
 const app = express();
 
 // Connect to MongoDB
@@ -24,6 +25,7 @@ app.use(express.json());
 app.use("/api/products", productRoutes); 
 app.use("/api/clients", clientRoutes); 
 app.use("/api/client-products", clientProductRoutes); 
+app.use("/api/renewals", renewalRoutes); 
 
 // Test Route
 app.get("/", (req, res) => {

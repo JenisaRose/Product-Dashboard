@@ -5,7 +5,8 @@ import Products from "./pages/Products";
 import { Toaster } from "react-hot-toast"; // React Hot Toast 
 import Clients from "./pages/Clients"; 
 import ClientProducts from "./pages/ClientProducts"; 
-import PaymentTracking from "./pages/PaymentTracking";
+import PaymentTracking from "./pages/PaymentTracking"; 
+import RenewalTracking from "./pages/RenewalTracking"; 
 
 function App() {
   return ( 
@@ -24,6 +25,8 @@ function App() {
       <Route path="/assignments" element={<ClientProducts />} /> 
  
       <Route path="/payments" element={<PaymentTracking />} />  
+
+      <Route path="/renewals" element={<RenewalTracking />} /> 
     </Routes> 
     </> 
     

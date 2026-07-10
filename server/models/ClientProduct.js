@@ -28,9 +28,9 @@ const clientProductSchema = new mongoose.Schema(
         // Monthly / Quarterly / Yearly
         billingCycle: {
             type: String,
-            enum: ["Monthly", "Quarterly", "Half-Yearly", "Yearly"],
+            enum: ["Monthly", "Quarterly", "Half Yearly", "Yearly"],
             required: true,
-        },
+        }, 
 
         // Subscription Amount
         amount: {
