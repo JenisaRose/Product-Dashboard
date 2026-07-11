@@ -33,6 +33,7 @@ import { getClients } from "../api/clientApi";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker"; 
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"; 
+import dayjs from "dayjs"; 
 
 
 const RenewalTracking = () => {
@@ -209,12 +210,19 @@ const RenewalTracking = () => {
                     renewal.paymentStatus !== "Paid"
                     : renewal.paymentStatus === paymentFilter; 
 
+        const renewalDate = dayjs(renewal.renewalDate);
+
+        const matchesDate =
+            (!fromDate || !renewalDate.isBefore(fromDate, "day")) &&
+            (!toDate || !renewalDate.isAfter(toDate, "day")); 
+
         return (
             matchesSearch &&
             matchesClient &&
             matchesProduct &&
             matchesWindow &&
-            matchesPayment
+            matchesPayment &&
+            matchesDate
         ); 
     });
 

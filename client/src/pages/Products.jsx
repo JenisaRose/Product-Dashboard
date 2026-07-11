@@ -64,6 +64,8 @@ async function fetchProducts() {
   }
 } 
 
+  // Get unique categories from all products
+  const categories = [...new Set(products.map((product) => product.category))]; 
   // Filters products based on product name, product code, category and status
   const filteredProducts = products.filter((product) => {
     const search = searchTerm.toLowerCase();
@@ -144,12 +146,15 @@ async function fetchProducts() {
             >
               {/* MUI MenuItem */}
               <MenuItem value="">All Categories</MenuItem>
-              <MenuItem value="AI">AI</MenuItem>
-              <MenuItem value="Software">Software</MenuItem>
-              <MenuItem value="Music">Music</MenuItem>
-              <MenuItem value="Entertainment">Entertainment</MenuItem>
-              <MenuItem value="Photos">Photos</MenuItem>
-              <MenuItem value="Information">Information</MenuItem>
+
+              {categories.map((category) => (
+                <MenuItem
+                  key={category}
+                  value={category}
+                >
+                  {category}
+                </MenuItem>
+              ))} 
             </Select>
           </FormControl>
         </Stack>

@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Base URL of our Express backend
 const API = axios.create({
-  baseURL: "http://localhost:5000/api/client-products", 
+    baseURL: "http://localhost:5000/api/client-products", 
 });
 
 // Fetch all product assignments

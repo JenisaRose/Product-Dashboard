@@ -4,14 +4,19 @@ const router = express.Router(); // Create a new Express router
 // Import controller functions
 const {
   getProducts,
-  createProduct, 
-  updateProduct, 
-  deleteProduct, 
-} = require("../controllers/productControllers");
+  getRecentProducts,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+} = require("../controllers/productControllers"); 
 
 // GET  /api/products
 // Fetch all products from the database
-router.get("/", getProducts);
+router.get("/", getProducts); 
+
+// GET /api/products/recent
+// Fetch recently added products
+router.get("/recent", getRecentProducts); 
 
 // POST /api/products
 // Add a new product to the database

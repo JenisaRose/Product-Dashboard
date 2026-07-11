@@ -1,19 +1,22 @@
 import axios from "axios";
 
-const API_URL = "https://product-dashboard-api-nqfn.onrender.com/api/clients"; 
+// Base URL of our Express backend
+const API = axios.create({
+  baseURL: "http://localhost:5000/api/clients",
+});
 
-// Get Clients
+// Fetch all clients
 export const getClients = (params) =>
-  axios.get(API_URL, { params });
+  API.get("/", { params });
 
-// Create Client
+// Create client
 export const createClient = (data) =>
-  axios.post(API_URL, data);
+  API.post("/", data);
 
-// Update Client
+// Update client
 export const updateClient = (id, data) =>
-  axios.put(`${API_URL}/${id}`, data);
+  API.put(`/${id}`, data);
 
-// Delete Client
+// Delete client
 export const deleteClient = (id) =>
-  axios.delete(`${API_URL}/${id}`); 
+  API.delete(`/${id}`); 

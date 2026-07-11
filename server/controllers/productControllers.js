@@ -75,9 +75,26 @@ const deleteProduct = async (req, res) => {
   }
 }; 
 
+// Get recently added products
+const getRecentProducts = async (req, res) => {
+  try {
+    const products = await Product.find()
+      .select("productName category status createdAt")
+      .sort({ createdAt: -1 })
+      .limit(5); 
+
+    res.status(200).json(products);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+}; 
+
 module.exports = {
   getProducts,
-  createProduct, 
-  updateProduct, 
-  deleteProduct, 
+  getRecentProducts,
+  createProduct,
+  updateProduct,
+  deleteProduct,
 }; 

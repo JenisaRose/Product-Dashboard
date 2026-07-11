@@ -2,11 +2,15 @@ import axios from "axios";
 
 // Base URL of our Express backend
 const API = axios.create({
-  baseURL: "https://product-dashboard-api-nqfn.onrender.com/api/products", 
+  baseURL: "http://localhost:5000/api/products", 
 });
 
 // Fetch all products
 export const getProducts = () => API.get("/"); 
+
+// Fetch recently added products
+export const getRecentProducts = () =>
+  API.get("/recent"); 
 
 // Sends a new product to the backend
 export const createProduct = (productData) =>
