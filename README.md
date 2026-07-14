@@ -220,21 +220,6 @@ VITE_API_URL=https://your-render-backend-url/api
 
 ---
 
-## 📸 Screenshots
-
-> Add screenshots of:
->
-> - Login Page
-> - Dashboard
-> - Products
-> - Clients
-> - Assignments
-> - Payments
-> - Renewals
-> - Reports
-
----
-
 ## 🔮 Future Enhancements
 
 - Email Notifications for Renewals
