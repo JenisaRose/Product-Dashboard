@@ -12,6 +12,9 @@ const clientRoutes = require("./routes/clientRoutes");
 const clientProductRoutes = require("./routes/clientProductRoutes"); 
 const renewalRoutes = require("./routes/renewalRoutes"); 
 const dashboardRoutes = require("./routes/dashboardRoutes"); 
+const reportRoutes = require("./routes/reportRoutes"); 
+const authRoutes = require("./routes/authRoutes"); 
+const activityLogRoutes = require("./routes/activityLogRoutes"); 
 const app = express();
 
 // Connect to MongoDB
@@ -28,6 +31,9 @@ app.use("/api/clients", clientRoutes);
 app.use("/api/client-products", clientProductRoutes); 
 app.use("/api/renewals", renewalRoutes); 
 app.use("/api/dashboard", dashboardRoutes); 
+app.use("/api/reports", reportRoutes); 
+app.use("/api/auth", authRoutes); 
+app.use("/api/activity-logs", activityLogRoutes); 
 
 // Test Route
 app.get("/", (req, res) => {

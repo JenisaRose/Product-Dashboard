@@ -177,19 +177,80 @@ const PaymentTracking = () => {
                             fullWidth
                             label="Search by Client, Product or Plan"
                             value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
+                            onChange={(e) => setSearchTerm(e.target.value)} 
+                            sx={{
+                                mb: 3,
+
+                                "& .MuiOutlinedInput-root": {
+                                    borderRadius: 3,
+                                    transition: "all 0.3s ease",
+                                    backgroundColor: "#fff",
+
+                                    "& fieldset": {
+                                        transition: "all 0.3s ease",
+                                    },
+
+                                    "&:hover": {
+                                        backgroundColor: "#fafafa",
+                                    },
+
+                                    "&:hover fieldset": {
+                                        borderColor: "#1976d2",
+                                    },
+
+                                    "&.Mui-focused": {
+                                        boxShadow: "0 6px 18px rgba(25,118,210,0.18)",
+                                    },
+
+                                    "&.Mui-focused fieldset": {
+                                        borderColor: "#1976d2",
+                                        borderWidth: "2px",
+                                    },
+                                },
+                            }} 
                         />
                     </Grid>
 
                     {/* Payment Status Filter */}
                     <Grid size={{ xs: 12, md: 4 }}>
-                        <FormControl fullWidth>
+                        <FormControl fullWidth
+                            sx={{
+                                mb: 3,
+
+                                "& .MuiOutlinedInput-root": {
+                                    borderRadius: 3,
+                                    transition: "all 0.3s ease",
+                                    backgroundColor: "#fff",
+
+                                    "& fieldset": {
+                                        transition: "all 0.3s ease",
+                                    },
+
+                                    "&:hover": {
+                                        backgroundColor: "#fafafa",
+                                    },
+
+                                    "&:hover fieldset": {
+                                        borderColor: "#1976d2",
+                                    },
+
+                                    "&.Mui-focused": {
+                                        boxShadow: "0 6px 18px rgba(25,118,210,0.18)",
+                                    },
+
+                                    "&.Mui-focused fieldset": {
+                                        borderColor: "#1976d2",
+                                        borderWidth: "2px",
+                                    },
+                                },
+                            }} 
+                            >
                             <InputLabel>Payment</InputLabel>
 
                             <Select
                                 value={paymentFilter}
                                 label="Payment"
-                                onChange={(e) => setPaymentFilter(e.target.value)}
+                                onChange={(e) => setPaymentFilter(e.target.value)} 
                             >
                                 <MenuItem value="All">All</MenuItem>
                                 <MenuItem value="Pending">Pending</MenuItem>

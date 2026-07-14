@@ -12,7 +12,13 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  Stack,
+  Stack, 
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Typography,
+  Button, 
 } from "@mui/material"; // MUI Form Components 
 import { Box } from "@mui/material"; 
 
@@ -28,7 +34,8 @@ function Products() {
 
   // Stores selected filters
   const [statusFilter, setStatusFilter] = useState("");
-  const [categoryFilter, setCategoryFilter] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState(""); 
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false); 
 
   // Fetch products automatically when the page loads
   useEffect(() => {
@@ -36,24 +43,29 @@ function Products() {
   }, []);
 
   // Deletes a product after user confirmation
-  async function handleDelete(productId) {
-  const confirmDelete = window.confirm(
-    "Are you sure you want to delete this product?"
-  );
+  const handleDeleteClick = (product) => {
+    setSelectedProduct(product);
+    setDeleteDialogOpen(true);
+  };
 
-  if (!confirmDelete) return;
+  const confirmDelete = async () => {
+    try {
+      await deleteProduct(selectedProduct._id);
 
-  try {
-    await deleteProduct(productId);
+      toast.success("Product deleted successfully");
 
-    toast.success("Product deleted successfully");
+      fetchProducts();
 
-    fetchProducts();
-  } catch (error) {
-    console.log(error);
-    toast.error(error.response?.data?.message || "Something went wrong");
-  }
-}
+      setDeleteDialogOpen(false);
+      setSelectedProduct(null);
+    } catch (error) {
+      console.log(error);
+
+      toast.error(
+        error.response?.data?.message || "Something went wrong"
+      );
+    }
+  }; 
 
 async function fetchProducts() {
   try {
@@ -81,7 +93,7 @@ async function fetchProducts() {
       categoryFilter === "" || product.category === categoryFilter;
 
     return matchesSearch && matchesStatus && matchesCategory;
-  });
+  }); 
 
   return (
     <DashboardLayout>
@@ -108,11 +120,71 @@ async function fetchProducts() {
             label="Search Products"
             value={searchTerm}
             onChange={(event) => setSearchTerm(event.target.value)}
-            fullWidth
+            fullWidth 
+            sx={{
+              mb: 3,
+
+              "& .MuiOutlinedInput-root": {
+                borderRadius: 3,
+                transition: "all 0.3s ease",
+                backgroundColor: "#fff",
+
+                "& fieldset": {
+                  transition: "all 0.3s ease",
+                },
+
+                "&:hover": {
+                  backgroundColor: "#fafafa",
+                },
+
+                "&:hover fieldset": {
+                  borderColor: "#1976d2",
+                },
+
+                "&.Mui-focused": {
+                  boxShadow: "0 6px 18px rgba(25,118,210,0.18)",
+                },
+
+                "&.Mui-focused fieldset": {
+                  borderColor: "#1976d2",
+                  borderWidth: "2px",
+                },
+              },
+            }} 
           />
 
           {/* MUI FormControl */}
-          <FormControl sx={{ minWidth: 180 }}>
+          <FormControl sx={{ 
+            minWidth: 180, 
+
+            "& .MuiOutlinedInput-root": {
+              borderRadius: 3,
+              transition: "all 0.3s ease",
+              backgroundColor: "#fff",
+
+              "& fieldset": {
+                transition: "all 0.3s ease",
+              },
+
+              "&:hover": {
+                backgroundColor: "#fafafa",
+              },
+
+              "&:hover fieldset": {
+                borderColor: "#1976d2",
+              },
+
+              "&.Mui-focused": {
+                boxShadow: "0 6px 18px rgba(25,118,210,0.18)",
+              },
+
+              "&.Mui-focused fieldset": {
+                borderColor: "#1976d2",
+                borderWidth: "2px",
+              },
+            },
+          }} 
+          >
             {/* MUI InputLabel */}
             <InputLabel>Status</InputLabel>
 
@@ -134,7 +206,37 @@ async function fetchProducts() {
           </FormControl>
 
           {/* MUI FormControl */}
-          <FormControl sx={{ minWidth: 200 }}>
+          <FormControl sx={{ 
+            minWidth: 200, 
+
+            "& .MuiOutlinedInput-root": {
+              borderRadius: 3,
+              transition: "all 0.3s ease",
+              backgroundColor: "#fff",
+
+              "& fieldset": {
+                transition: "all 0.3s ease",
+              },
+
+              "&:hover": {
+                backgroundColor: "#fafafa",
+              },
+
+              "&:hover fieldset": {
+                borderColor: "#1976d2",
+              },
+
+              "&.Mui-focused": {
+                boxShadow: "0 6px 18px rgba(25,118,210,0.18)",
+              },
+
+              "&.Mui-focused fieldset": {
+                borderColor: "#1976d2",
+                borderWidth: "2px",
+              },
+            },
+          }} 
+          >
             {/* MUI InputLabel */}
             <InputLabel>Category</InputLabel>
 
@@ -163,9 +265,74 @@ async function fetchProducts() {
         <ProductTable
           products={filteredProducts}
           onEdit={setSelectedProduct}
-          onDelete={handleDelete}
-        />
+          onDelete={handleDeleteClick}
+        /> 
       </Box> 
+      <Dialog
+        open={deleteDialogOpen}
+        onClose={() => setDeleteDialogOpen(false)}
+        maxWidth="sm"
+        fullWidth
+      >
+        <DialogTitle
+          sx={{
+            color: "#d32f2f",
+            fontWeight: "bold",
+          }}
+        >
+          Delete Product?
+        </DialogTitle>
+
+        <DialogContent dividers>
+
+          <Typography>
+            This action cannot be undone.
+          </Typography>
+
+          <Typography sx={{ mt: 2 }}>
+            Deleting this product will also remove all related:
+          </Typography>
+
+          <Box sx={{ mt: 2, ml: 2 }}>
+
+            <Typography>
+              • Assignments
+            </Typography>
+
+            <Typography>
+              • Payments
+            </Typography>
+
+            <Typography>
+              • Renewals
+            </Typography>
+
+          </Box>
+
+        </DialogContent>
+
+        <DialogActions>
+
+          <Button
+            onClick={() => {
+              setDeleteDialogOpen(false);
+              setSelectedProduct(null);
+            }}
+          >
+            Cancel
+          </Button>
+
+          <Button
+            color="error"
+            variant="contained"
+            onClick={confirmDelete}
+          >
+            Delete
+          </Button>
+
+        </DialogActions>
+
+      </Dialog> 
     </DashboardLayout>
   );
 } 

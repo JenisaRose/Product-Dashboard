@@ -257,18 +257,79 @@ const RenewalTracking = () => {
                             label="Search by Client, Product or Plan"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
+                                sx={{
+                                    mb: 3,
+
+                                    "& .MuiOutlinedInput-root": {
+                                        borderRadius: 3,
+                                        transition: "all 0.3s ease",
+                                        backgroundColor: "#fff",
+
+                                        "& fieldset": {
+                                            transition: "all 0.3s ease",
+                                        },
+
+                                        "&:hover": {
+                                            backgroundColor: "#fafafa",
+                                        },
+
+                                        "&:hover fieldset": {
+                                            borderColor: "#1976d2",
+                                        },
+
+                                        "&.Mui-focused": {
+                                            boxShadow: "0 6px 18px rgba(25,118,210,0.18)",
+                                        },
+
+                                        "&.Mui-focused fieldset": {
+                                            borderColor: "#1976d2",
+                                            borderWidth: "2px",
+                                        },
+                                    },
+                                }} 
                         />
                     </Grid>
 
                     {/* Client */}
                     <Grid size={{ xs: 12, md: 4 }}>
-                        <FormControl fullWidth>
+                        <FormControl fullWidth
+                                sx={{
+                                    mb: 3,
+
+                                    "& .MuiOutlinedInput-root": {
+                                        borderRadius: 3,
+                                        transition: "all 0.3s ease",
+                                        backgroundColor: "#fff",
+
+                                        "& fieldset": {
+                                            transition: "all 0.3s ease",
+                                        },
+
+                                        "&:hover": {
+                                            backgroundColor: "#fafafa",
+                                        },
+
+                                        "&:hover fieldset": {
+                                            borderColor: "#1976d2",
+                                        },
+
+                                        "&.Mui-focused": {
+                                            boxShadow: "0 6px 18px rgba(25,118,210,0.18)",
+                                        },
+
+                                        "&.Mui-focused fieldset": {
+                                            borderColor: "#1976d2",
+                                            borderWidth: "2px",
+                                        },
+                                    },
+                                }} 
+                                >
                             <InputLabel>Client</InputLabel>
 
                             <Select
                                 value={clientFilter}
                                 label="Client"
-                                onChange={(e) => setClientFilter(e.target.value)}
+                                onChange={(e) => setClientFilter(e.target.value)} 
                             >
                                 <MenuItem value="All">All</MenuItem>
 
@@ -286,7 +347,38 @@ const RenewalTracking = () => {
 
                     {/* Product */}
                     <Grid size={{ xs: 12, md: 4 }}>
-                        <FormControl fullWidth>
+                        <FormControl fullWidth
+                                sx={{
+                                    mb: 3,
+
+                                    "& .MuiOutlinedInput-root": {
+                                        borderRadius: 3,
+                                        transition: "all 0.3s ease",
+                                        backgroundColor: "#fff",
+
+                                        "& fieldset": {
+                                            transition: "all 0.3s ease",
+                                        },
+
+                                        "&:hover": {
+                                            backgroundColor: "#fafafa",
+                                        },
+
+                                        "&:hover fieldset": {
+                                            borderColor: "#1976d2",
+                                        },
+
+                                        "&.Mui-focused": {
+                                            boxShadow: "0 6px 18px rgba(25,118,210,0.18)",
+                                        },
+
+                                        "&.Mui-focused fieldset": {
+                                            borderColor: "#1976d2",
+                                            borderWidth: "2px",
+                                        },
+                                    },
+                                }} 
+                        >
                             <InputLabel>Product</InputLabel>
 
                             <Select
@@ -319,7 +411,38 @@ const RenewalTracking = () => {
 
                         {/* Renewal Window */}
                         <Grid size={{ xs: 12, md: 3 }}>
-                            <FormControl fullWidth size="small">
+                            <FormControl fullWidth size="small"
+                                sx={{
+                                    mb: 3,
+
+                                    "& .MuiOutlinedInput-root": {
+                                        borderRadius: 3,
+                                        transition: "all 0.3s ease",
+                                        backgroundColor: "#fff",
+
+                                        "& fieldset": {
+                                            transition: "all 0.3s ease",
+                                        },
+
+                                        "&:hover": {
+                                            backgroundColor: "#fafafa",
+                                        },
+
+                                        "&:hover fieldset": {
+                                            borderColor: "#1976d2",
+                                        },
+
+                                        "&.Mui-focused": {
+                                            boxShadow: "0 6px 18px rgba(25,118,210,0.18)",
+                                        },
+
+                                        "&.Mui-focused fieldset": {
+                                            borderColor: "#1976d2",
+                                            borderWidth: "2px",
+                                        },
+                                    },
+                                }} 
+                            >
                                 <InputLabel>Renewal Window</InputLabel>
 
                                 <Select
@@ -339,7 +462,38 @@ const RenewalTracking = () => {
 
                         {/* Payment Status */}
                         <Grid size={{ xs: 12, md: 3 }}>
-                            <FormControl fullWidth size="small">
+                            <FormControl fullWidth size="small"
+                                sx={{
+                                    mb: 3,
+
+                                    "& .MuiOutlinedInput-root": {
+                                        borderRadius: 3,
+                                        transition: "all 0.3s ease",
+                                        backgroundColor: "#fff",
+
+                                        "& fieldset": {
+                                            transition: "all 0.3s ease",
+                                        },
+
+                                        "&:hover": {
+                                            backgroundColor: "#fafafa",
+                                        },
+
+                                        "&:hover fieldset": {
+                                            borderColor: "#1976d2",
+                                        },
+
+                                        "&.Mui-focused": {
+                                            boxShadow: "0 6px 18px rgba(25,118,210,0.18)",
+                                        },
+
+                                        "&.Mui-focused fieldset": {
+                                            borderColor: "#1976d2",
+                                            borderWidth: "2px",
+                                        },
+                                    },
+                                }} 
+                            >
                                 <InputLabel>Payment Status</InputLabel>
 
                                 <Select
@@ -357,18 +511,18 @@ const RenewalTracking = () => {
                         </Grid>
 
                         {/* From Date */}
-                        <Grid size={{ xs: 12, md: 3 }}>
-                            <DatePicker
+                        <Grid size={{ xs: 12, md: 3 }} >
+                            <DatePicker 
                                 label="From Date"
                                 value={fromDate}
-                                onChange={(newValue) => setFromDate(newValue)}
+                                onChange={(newValue) => setFromDate(newValue)} 
                                 slotProps={{
                                     textField: {
                                         fullWidth: true,
-                                        size: "small",
-                                    },
-                                }}
-                            />
+                                        size: "small", 
+                                    }, 
+                                }} 
+                            /> 
                         </Grid>
 
                         {/* To Date */}

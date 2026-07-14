@@ -85,24 +85,18 @@ function PaymentForm({
             <Grid size={{ xs: 12, md: 6 }}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
-                        label="Last Payment Date" 
+                        label="Last Payment Date"
                         value={
-                            formData.startDate
-                                ? dayjs(formData.startDate)
+                            formData.lastPaymentDate
+                                ? dayjs(formData.lastPaymentDate)
                                 : null
                         }
                         onChange={(newValue) => {
-                            const start = newValue
-                                ? newValue.format("YYYY-MM-DD")
-                                : "";
-
                             setFormData((prev) => ({
                                 ...prev,
-                                startDate: start,
-                                renewalDate: calculateRenewalDate(
-                                    start,
-                                    prev.billingCycle
-                                ),
+                                lastPaymentDate: newValue
+                                    ? newValue.format("YYYY-MM-DD")
+                                    : "",
                             }));
                         }}
                         slotProps={{
@@ -111,7 +105,7 @@ function PaymentForm({
                             },
                         }}
                     />
-                </LocalizationProvider>
+                </LocalizationProvider> 
             </Grid> 
 
             <Grid size={{ xs: 12, md: 6 }}>

@@ -146,9 +146,29 @@ const getDashboardCharts = async (req, res) => {
     }
 }; 
 
+// Get Pending Payment Notifications
+const getPendingPayments = async (req, res) => {
+    try {
+        const pendingPayments = await ClientProduct.find({
+            paymentStatus: "Pending",
+        })
+            .populate("client", "companyName")
+            .populate("product", "productName")
+            .sort({ renewalDate: 1 })
+            .limit(5);
+
+        res.status(200).json(pendingPayments);
+    } catch (error) {
+        res.status(500).json({
+            message: error.message,
+        });
+    }
+}; 
+
 module.exports = {
     getDashboardSummary,
     getUpcomingRenewals,
     getRecentClientMappings,
-    getDashboardCharts,
+    getDashboardCharts, 
+    getPendingPayments, 
 }; 

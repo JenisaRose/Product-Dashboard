@@ -7,7 +7,9 @@ const {
     getUpcomingRenewals,
     getRecentClientMappings,
     getDashboardCharts,
+    getPendingPayments,
 } = require("../controllers/dashboardControllers"); 
+const { protect } = require("../middleware/authMiddleware"); 
 
 // GET /api/dashboard/summary
 // Fetch dashboard summary data
@@ -22,5 +24,11 @@ router.get("/upcoming-renewals", getUpcomingRenewals);
 router.get("/recent-mappings", getRecentClientMappings); 
 
 router.get("/charts", getDashboardCharts); 
+
+router.get(
+    "/pending-payments",
+    protect,
+    getPendingPayments
+); 
 
 module.exports = router; 

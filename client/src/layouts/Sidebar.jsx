@@ -15,10 +15,11 @@ import {
   ClipboardList,
   CreditCard,
   Bell,
-  FileBarChart,
+  FileBarChart, 
+  History, 
 } from "lucide-react"; 
 import { NavLink, useLocation } from "react-router-dom"; // React Router 
-import logo from "../assets/ARODEK LOGO.png"; 
+import logo from "../assets/ARODEKLOGO.png"; 
 
 export const drawerWidth = 260; 
 
@@ -29,7 +30,12 @@ const menuItems = [
   { text: "Assignments", path: "/assignments", icon: <ClipboardList size={20} /> },
   { text: "Payments", path: "/payments", icon: <CreditCard size={20} /> },
   { text: "Renewals", path: "/renewals", icon: <Bell size={20} /> },
-  { text: "Reports", path: "/reports", icon: <FileBarChart size={20} /> },
+  { text: "Reports", path: "/reports", icon: <FileBarChart size={20} /> }, 
+  {
+    text: "Activity Log",
+    path: "/activity-logs",
+    icon: <History size={20} />,
+  }, 
 ]; 
 
 function Sidebar() { 

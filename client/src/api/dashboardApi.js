@@ -1,22 +1,21 @@
-import axios from "axios";
-
-// Base URL of our Express backend
-const API = axios.create({
-    baseURL: "http://localhost:5000/api/dashboard", 
-});
+import api from "./axios" 
 
 // Fetch dashboard summary
 export const getDashboardSummary = () => 
-    API.get("/summary"); 
+    api.get("/dashboard/summary"); 
 
 // Fetch upcoming renewals
 export const getUpcomingRenewals = () =>
-    API.get("/upcoming-renewals"); 
+    api.get("/dashboard/upcoming-renewals"); 
 
 // Fetch recent client-product mappings
 export const getRecentClientMappings = () =>
-    API.get("/recent-mappings"); 
+    api.get("/dashboard/recent-mappings"); 
 
 // Fetch dashboard chart data
 export const getDashboardCharts = () =>
-    API.get("/charts"); 
+    api.get("/dashboard/charts"); 
+
+// Fetch pending payment notifications
+export const getPendingPayments = () =>
+    api.get("/dashboard/pending-payments"); 

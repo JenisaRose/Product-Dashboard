@@ -1,4 +1,5 @@
-const Product = require("../models/Product");
+const Product = require("../models/Product"); 
+const ClientProduct = require("../models/ClientProduct"); 
 
 // Get all products
 const getProducts = async (req, res) => {
@@ -8,12 +9,22 @@ const getProducts = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-};
+}; 
+
+const logActivity = require("../utils/activityLogger"); 
+const ACTIVITY_ACTIONS = require("../utils/activityActions"); 
 
 // Create a new product
 const createProduct = async (req, res) => {
   try {
-    const product = await Product.create(req.body);
+    const product = await Product.create(req.body); 
+    await logActivity({
+      actionType: ACTIVITY_ACTIONS.PRODUCT_CREATED, 
+      entityName: product.productName,
+      oldValue: null,
+      newValue: product.toObject(),
+      admin: req.admin, 
+    }); 
     res.status(201).json(product);
   } 
   catch (error) {
@@ -57,21 +68,32 @@ const updateProduct = async (req, res) => {
 // Delete a product
 const deleteProduct = async (req, res) => {
   try {
-    // Find the product using its MongoDB ID
     const product = await Product.findById(req.params.id);
 
-    // If product doesn't exist
     if (!product) {
-      return res.status(404).json({ message: "Product not found" });
+      return res.status(404).json({
+        message: "Product not found",
+      });
     }
 
-    // Delete the product
-    await Product.findByIdAndDelete(req.params.id);
+    const productId = req.params.id;
 
-    // Send success message
-    res.json({ message: "Product deleted successfully" });
+    // Delete all related assignments
+    await ClientProduct.deleteMany({
+      product: productId,
+    });
+
+    // Delete the product
+    await Product.findByIdAndDelete(productId);
+
+    res.json({
+      message: "Product deleted successfully",
+    });
+
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({
+      message: error.message,
+    });
   }
 }; 
 

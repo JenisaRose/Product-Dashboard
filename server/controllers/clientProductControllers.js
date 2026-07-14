@@ -5,6 +5,8 @@ const {
     calculateCurrentStatus,
     calculatePaymentStatus,
 } = require("../utils/statusUtils"); 
+const logActivity = require("../utils/activityLogger");
+const ACTIVITY_ACTIONS = require("../utils/activityActions"); 
 
 /*
 =========================================
@@ -105,7 +107,8 @@ Update Product Assignment
 PUT /api/client-products/:id
 =========================================
 */
-const updateClientProduct = async (req, res) => {
+const updateClientProduct = async (req, res) => { 
+    console.log("===== UPDATE CLIENT PRODUCT CALLED ====="); 
     try {
         // Calculate the current status based on the new renewal date
         const currentStatus = calculateCurrentStatus(
@@ -137,6 +140,15 @@ const updateClientProduct = async (req, res) => {
             });
         } 
 
+        const oldClientProduct = await ClientProduct.findById(req.params.id);
+
+        if (!oldClientProduct) {
+            return res.status(404).json({
+                success: false,
+                message: "Assignment not found.",
+            });
+        } 
+
         const updatedClientProduct =
             await ClientProduct.findByIdAndUpdate(
                 req.params.id,
@@ -158,7 +170,32 @@ const updateClientProduct = async (req, res) => {
                 success: false,
                 message: "Assignment not found.",
             });
-        }
+        } 
+
+        console.log(req.admin); 
+        console.log("Controller req.admin:");
+        console.log(req.admin); 
+        await logActivity({
+            actionType: ACTIVITY_ACTIONS.SUBSCRIPTION_RENEWED,
+            entityName: updatedClientProduct.planName,
+            oldValue: oldClientProduct.toObject(),
+            newValue: updatedClientProduct.toObject(),
+            admin: req.admin,
+        }); 
+
+        if (oldClientProduct.paymentStatus !== updatedClientProduct.paymentStatus) {
+            await logActivity({
+                actionType: ACTIVITY_ACTIONS.PAYMENT_STATUS_CHANGED,
+                entityName: updatedClientProduct.planName,
+                oldValue: {
+                    paymentStatus: oldClientProduct.paymentStatus,
+                },
+                newValue: {
+                    paymentStatus: updatedClientProduct.paymentStatus,
+                },
+                admin: req.admin,
+            });
+        } 
 
         res.status(200).json(updatedClientProduct);
     } catch (error) {

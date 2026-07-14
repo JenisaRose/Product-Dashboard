@@ -1,3 +1,5 @@
+const { protect } = require("../middleware/authMiddleware"); 
+
 // Import Express
 const express = require("express");
 
@@ -10,7 +12,7 @@ const {
   getClientProducts,
   updateClientProduct,
   deleteClientProduct,
-} = require("../controllers/clientProductControllers");
+} = require("../controllers/clientProductControllers"); 
 
 /*
 =========================================
@@ -19,9 +21,11 @@ POST   /api/client-products
 =========================================
 */
 
-router.route("/")
-  .get(getClientProducts)
-  .post(createClientProduct);
+router
+    .route("/")
+    .get(protect, getClientProducts)
+    .post(protect, createClientProduct); 
+ 
 
 /*
 =========================================
@@ -30,9 +34,10 @@ DELETE /api/client-products/:id
 =========================================
 */
 
-router.route("/:id")
-  .put(updateClientProduct)
-  .delete(deleteClientProduct);
+router
+    .route("/:id")
+    .put(protect, updateClientProduct)
+    .delete(protect, deleteClientProduct); 
 
 // Export Router
 module.exports = router; 

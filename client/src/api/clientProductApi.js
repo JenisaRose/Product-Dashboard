@@ -1,21 +1,17 @@
-import axios from "axios";
-
-// Base URL of our Express backend
-const API = axios.create({
-    baseURL: "http://localhost:5000/api/client-products", 
-});
+import api from "./axios";
 
 // Fetch all product assignments
-export const getClientProducts = () => API.get("/");
+export const getClientProducts = () =>
+    api.get("/client-products");
 
 // Create a new product assignment
 export const createClientProduct = (assignmentData) =>
-  API.post("/", assignmentData);
+    api.post("/client-products", assignmentData);
 
 // Update an existing product assignment
 export const updateClientProduct = (id, assignmentData) =>
-  API.put(`/${id}`, assignmentData);
+    api.put(`/client-products/${id}`, assignmentData);
 
 // Delete a product assignment
 export const deleteClientProduct = (id) =>
-  API.delete(`/${id}`); 
+    api.delete(`/client-products/${id}`); 

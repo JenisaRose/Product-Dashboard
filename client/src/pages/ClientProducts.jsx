@@ -77,10 +77,15 @@ function ClientProducts() {
         const search = searchTerm.toLowerCase();
 
         const matchesSearch =
-            assignment.client.companyName
+            (assignment.client?.companyName || "")
                 .toLowerCase()
                 .includes(search) ||
-            assignment.product.productName
+
+            (assignment.product?.productName || "")
+                .toLowerCase()
+                .includes(search) ||
+
+            (assignment.planName || "")
                 .toLowerCase()
                 .includes(search);
 
@@ -133,10 +138,70 @@ function ClientProducts() {
                         value={searchTerm}
                         onChange={(event) =>
                             setSearchTerm(event.target.value)
-                        }
+                        } 
+                        sx={{
+                            mb: 3,
+
+                            "& .MuiOutlinedInput-root": {
+                                borderRadius: 3,
+                                transition: "all 0.3s ease",
+                                backgroundColor: "#fff",
+
+                                "& fieldset": {
+                                    transition: "all 0.3s ease",
+                                },
+
+                                "&:hover": {
+                                    backgroundColor: "#fafafa",
+                                },
+
+                                "&:hover fieldset": {
+                                    borderColor: "#1976d2",
+                                },
+
+                                "&.Mui-focused": {
+                                    boxShadow: "0 6px 18px rgba(25,118,210,0.18)",
+                                },
+
+                                "&.Mui-focused fieldset": {
+                                    borderColor: "#1976d2",
+                                    borderWidth: "2px",
+                                },
+                            },
+                        }} 
                     />
 
-                    <FormControl sx={{ minWidth: 180 }}>
+                    <FormControl sx={{ 
+                        minWidth: 180,
+
+                        "& .MuiOutlinedInput-root": {
+                            borderRadius: 3,
+                            transition: "all 0.3s ease",
+                            backgroundColor: "#fff",
+
+                            "& fieldset": {
+                                transition: "all 0.3s ease",
+                            },
+
+                            "&:hover": {
+                                backgroundColor: "#fafafa",
+                            },
+
+                            "&:hover fieldset": {
+                                borderColor: "#1976d2",
+                            },
+
+                            "&.Mui-focused": {
+                                boxShadow: "0 6px 18px rgba(25,118,210,0.18)",
+                            },
+
+                            "&.Mui-focused fieldset": {
+                                borderColor: "#1976d2",
+                                borderWidth: "2px",
+                            },
+                        },
+                    }} 
+                    >
                         <InputLabel>Payment</InputLabel>
 
                         <Select
@@ -154,7 +219,37 @@ function ClientProducts() {
                         </Select>
                     </FormControl>
 
-                    <FormControl sx={{ minWidth: 180 }}>
+                    <FormControl sx={{ 
+                        minWidth:180, 
+
+                        "& .MuiOutlinedInput-root": {
+                            borderRadius: 3,
+                            transition: "all 0.3s ease",
+                            backgroundColor: "#fff",
+
+                            "& fieldset": {
+                                transition: "all 0.3s ease",
+                            },
+
+                            "&:hover": {
+                                backgroundColor: "#fafafa",
+                            },
+
+                            "&:hover fieldset": {
+                                borderColor: "#1976d2",
+                            },
+
+                            "&.Mui-focused": {
+                                boxShadow: "0 6px 18px rgba(25,118,210,0.18)",
+                            },
+
+                            "&.Mui-focused fieldset": {
+                                borderColor: "#1976d2",
+                                borderWidth: "2px",
+                            },
+                        },
+                    }} 
+                     >
                         <InputLabel>Status</InputLabel>
 
                         <Select

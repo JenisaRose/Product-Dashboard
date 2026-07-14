@@ -1,22 +1,18 @@
-import axios from "axios";
+import api from "./axios"; 
 
-// Base URL of our Express backend
-const API = axios.create({
-  baseURL: "http://localhost:5000/api/clients",
-});
 
 // Fetch all clients
 export const getClients = (params) =>
-  API.get("/", { params });
+  api.get("/clients", { params });
 
 // Create client
 export const createClient = (data) =>
-  API.post("/", data);
+  api.post("/clients", data);
 
 // Update client
 export const updateClient = (id, data) =>
-  API.put(`/${id}`, data);
+  api.put(`/clients/${id}`, data);
 
 // Delete client
 export const deleteClient = (id) =>
-  API.delete(`/${id}`); 
+  api.delete(`/clients/${id}`); 

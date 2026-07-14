@@ -20,12 +20,25 @@ const PaymentTable = ({
     onEdit,
 }) => {        //Destraucturing props 
     return (
-        <TableContainer component={Paper} sx={{ mt: 3 }}>
+        <TableContainer
+            component={Paper}
+            elevation={3}
+            sx={{ 
+                mt: 3, 
+                borderRadius: 3,
+            }}
+        > 
             <Table>
 
                 {/* Table Header */}
                 <TableHead>
-                    <TableRow>
+                    <TableRow
+                        sx={{
+                            "&:hover": {
+                                bgcolor: "#F5F9FF",
+                            },
+                        }}
+                    > 
                         <TableCell><strong>Client</strong></TableCell>
                         <TableCell><strong>Product</strong></TableCell>
                         <TableCell><strong>Total Amount</strong></TableCell>
@@ -42,85 +55,109 @@ const PaymentTable = ({
 
                 {/* Table Body */}
                 <TableBody>
+                    {payments.length > 0 ? (
+                        payments.map((payment) => (
+                            <TableRow
+                                key={payment._id}
+                                hover
+                                sx={{
+                                    transition: "all 0.25s ease",
 
-                    {payments.map((payment) => (
+                                    "&:hover": {
+                                        backgroundColor: "#F5F9FF",
+                                    },
+                                }}
+                            >
+                                <TableCell>
+                                    {payment.client?.companyName}
+                                </TableCell>
 
-                        <TableRow key={payment._id}>
+                                <TableCell>
+                                    {payment.product?.productName}
+                                </TableCell>
 
-                            <TableCell>
-                                {payment.client?.companyName}
-                            </TableCell>
+                                <TableCell>
+                                    {formatCurrency(payment.amount, payment.currency)}
+                                </TableCell>
 
-                            <TableCell>
-                                {payment.product?.productName}
-                            </TableCell>
-
-                            <TableCell>
-                                {formatCurrency(payment.amount, payment.currency)}
-                            </TableCell> 
-
-                            <TableCell>
-                                {formatCurrency(payment.paidAmount, payment.currency)}
-                            </TableCell> 
+                                <TableCell>
+                                    {formatCurrency(payment.paidAmount, payment.currency)}
+                                </TableCell>
 
                                 <TableCell>
                                     {formatCurrency(payment.pendingAmount, payment.currency)}
                                 </TableCell>
 
-                            <TableCell>
-                                <Chip
-                                    label={
-                                        payment.currentStatus === "Expired" &&
-                                            payment.paymentStatus !== "Paid"
-                                            ? `Overdue (${payment.paymentStatus})`
-                                            : payment.paymentStatus
-                                    }
-                                    color={
-                                        payment.currentStatus === "Expired" &&
-                                            payment.paymentStatus !== "Paid"
-                                            ? "error"
-                                            : payment.paymentStatus === "Paid"
-                                                ? "success"
-                                                : payment.paymentStatus === "Pending"
-                                                    ? "warning"
-                                                    : "info"
-                                    }
-                                    size="small"
-                                />
-                            </TableCell>  
-                            <TableCell>
-                                {formatDate(payment.lastPaymentDate)} 
+                                <TableCell>
+                                    <Chip
+                                        label={
+                                            payment.currentStatus === "Expired" &&
+                                                payment.paymentStatus !== "Paid"
+                                                ? `Overdue (${payment.paymentStatus})`
+                                                : payment.paymentStatus
+                                        }
+                                        color={
+                                            payment.currentStatus === "Expired" &&
+                                                payment.paymentStatus !== "Paid"
+                                                ? "error"
+                                                : payment.paymentStatus === "Paid"
+                                                    ? "success"
+                                                    : payment.paymentStatus === "Pending"
+                                                        ? "warning"
+                                                        : "info"
+                                        }
+                                        size="small"
+                                    />
+                                </TableCell>
+
+                                <TableCell>
+                                    {formatDate(payment.lastPaymentDate)}
+                                </TableCell>
+
+                                <TableCell>
+                                    <Tooltip title={payment.paymentRemarks || ""} arrow>
+                                        <span>
+                                            {payment.paymentRemarks
+                                                ? payment.paymentRemarks.length > 30
+                                                    ? `${payment.paymentRemarks.substring(0, 30)}...`
+                                                    : payment.paymentRemarks
+                                                : "-"}
+                                        </span>
+                                    </Tooltip>
+                                </TableCell>
+
+                                <TableCell align="center">
+                                    <Tooltip title="Edit Payment">
+                                        <IconButton
+                                            color="primary"
+                                            onClick={() => onEdit(payment)}
+                                            sx={{
+                                                transition: "0.2s",
+
+                                                "&:hover": {
+                                                    color: "#1976d2",
+                                                    transform: "scale(1.15)",
+                                                },
+                                            }}
+                                        >
+                                            <Pencil size={18} />
+                                        </IconButton>
+                                    </Tooltip>
+                                </TableCell>
+                            </TableRow>
+                        ))
+                    ) : (
+                        <TableRow>
+                            <TableCell
+                                colSpan={9}
+                                align="center"
+                                sx={{ py: 2.5 }}
+                            >
+                                No payments found.
                             </TableCell>
-
-                            <TableCell>
-                                <Tooltip
-                                    title={payment.paymentRemarks || ""}
-                                    arrow
-                                >
-                                    <span>
-                                        {payment.paymentRemarks
-                                            ? payment.paymentRemarks.length > 30
-                                                ? `${payment.paymentRemarks.substring(0, 30)}...`
-                                                : payment.paymentRemarks
-                                            : "-"}
-                                    </span>
-                                </Tooltip>
-                            </TableCell> 
-                            <TableCell align="center">
-                                <Tooltip title="Edit Payment">
-                                    <IconButton
-                                        color="primary"
-                                        onClick={() => onEdit(payment)}
-                                    >
-                                        <Pencil size={18} />
-                                    </IconButton>
-                                </Tooltip> 
-                            </TableCell> 
                         </TableRow>
-
-                    ))}
-
-                </TableBody>
+                    )}
+                </TableBody> 
 
             </Table>
         </TableContainer>
