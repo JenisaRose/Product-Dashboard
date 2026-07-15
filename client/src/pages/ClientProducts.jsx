@@ -115,7 +115,7 @@ function ClientProducts() {
     return (
         <DashboardLayout>
             <Box sx={{ p: 3 }}>
-                <h1>Product Assignment Tracker</h1>
+                <h1 style={{ fontSize: "40px" }}>Product Assignment Tracker</h1>
 
                 <ClientProductForm
                     onAssignmentAdded={fetchAssignments}

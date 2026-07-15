@@ -236,12 +236,7 @@ const RenewalTracking = () => {
 
                 <Box>
 
-                <Typography
-                    variant="h4"
-                    gutterBottom
-                >
-                    Renewal Tracking
-                </Typography>
+                    <h1 style={{ fontSize: "48px" }}>Renewal Tracking</h1>
 
                 {/* ======================= FILTER ROW 1 ======================= */}
                 <Grid

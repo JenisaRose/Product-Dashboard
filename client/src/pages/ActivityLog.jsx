@@ -159,9 +159,7 @@ const ActivityLog = () => {
                     borderRadius: 3,
                 }}
             >
-                <Typography variant="h4" fontWeight="bold">
-                    Activity Log
-                </Typography>
+                    <h1 style={{ fontSize: "48px" }}>Activity Log</h1> 
 
                 <Typography
                     color="text.secondary"
@@ -403,7 +401,7 @@ const ActivityLog = () => {
                                     <Box
                                         display="flex"
                                         justifycontent="space-between"
-                                        alignitems="flex-end"
+                                        aligntems="flex-end"
                                     >
                                         <Box>
 

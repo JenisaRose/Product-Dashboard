@@ -89,7 +89,7 @@ const filteredClients = clients.filter((client) => {
   return (
     <DashboardLayout>
       <Box sx={{ p: 3 }}> 
-        <h1>Client Dashboard</h1> 
+        <h1 style={{ fontSize: "40px" }}>Client Dashboard</h1> 
 
 
 <ClientForm

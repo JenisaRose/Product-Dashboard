@@ -96,12 +96,7 @@ function Dashboard() {
   return (
     <DashboardLayout>
       <Box sx={{ p: 3 }}>
-        <Typography
-          variant="h4"
-          gutterBottom
-        >
-          Dashboard
-        </Typography>
+        <h1 style={{ fontSize: "48px" }}>Dashboard</h1> 
 
         <DashboardSummaryCards summary={summary} />
 

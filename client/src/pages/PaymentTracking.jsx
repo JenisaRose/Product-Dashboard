@@ -164,9 +164,7 @@ const PaymentTracking = () => {
         <DashboardLayout>
         <Box>
             {/* Page Title */}
-            <Typography variant="h4" gutterBottom>
-                Payment Tracking
-            </Typography>
+                <h1 style={{ fontSize: "48px" }}>Payment Tracking</h1> 
 
                 {/* Search & Filter */}
                 <Grid container spacing={2} sx={{ mb: 2 }}>

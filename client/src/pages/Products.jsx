@@ -98,7 +98,7 @@ async function fetchProducts() {
   return (
     <DashboardLayout>
   <Box sx={{ p: 3 }}>
-    <h1>Product Dashboard</h1>
+        <h1 style={{ fontSize: "40px" }}>Product Dashboard</h1> 
 
     <ProductForm
       onProductAdded={fetchProducts}

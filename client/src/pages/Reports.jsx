@@ -188,9 +188,7 @@ const Reports = () => {
 
     return (
         <DashboardLayout>
-            <Typography variant="h4" fontWeight="bold" mb={3}>
-                Reports
-            </Typography>
+            <h1 style={{ fontSize: "48px" }}>Reports</h1> 
             <Box
                 sx={{
                     display: "flex",
